@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:dubbp="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--启动对@AspectJ注解的支持-->
+    <aop:aspectj-autoproxy/>
+
+    <context:component-scan base-package="top.whysu.manager"/>
+
+    <!--会自动注册RequestMappingHandlerMapping和RequestMappingHandlerAdapter,是支持SpringMVC为@Controller分发请求所必需的-->
+    <mvc:annotation-driven/>
+
+    <!-- 拦截器.${pageContext.request.contextPath}/user/login 可以简写成 ${URL}/user/login -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="top.whysu.manager.interceptor.SecurityInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--配置自定义Realm-->
+    <bean id="myRealm" class="top.whysu.manager.shiro.MyRealm"/>
+
+    <!--Shiro安全管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"/>
+    </bean>
+
+    <!--Shiro自定义过滤器-->
+    <bean id="perms" class="top.whysu.manager.shiro.MyPermissionFilter"/>
+
+    <!--Shiro核心过滤器，自定义MyShiroFilterFactoryBean动态获取权限-->
+    <bean id="shiroFilter" class="top.whysu.manager.shiro.MyShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份认证失败，则跳转到登录页面的配置 -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 登录成功之后的 跳转页面 -->
+        <property name="successUrl" value="/"/>
+        <!-- 权限认证失败，则跳转到指定页面 -->
+        <property name="unauthorizedUrl" value="/403"/>
+        <!--自定义过滤器-->
+        <property name="filters">
+            <util:map>
+                <entry key="perms" value-ref="perms"/>
+                <entry key="roles" value-ref="perms"/>
+            </util:map>
+        </property>
+        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--这里原先是【静态获取权限】，现在改为【动态获取】，在数据库中指定，所以这里可以不写-->
+                <!--anon 表示不需要认证以及授权-->
+                <!--authc 表示需要认证 没有登录是不能进行访问的-->
+                <!--perms 表示需要该权限才能访问的页面 /user/* = perms[/*] -->
+                <!--roles 表示需要角色才能访问的页面 /* = roles[管理员]-->
+                <!--/login = anon
+                /401 = anon
+                / = authc
+                /index = authc
+                /welcome = authc
+                /thanks-pic = authc
+                /lock-screen = authc
+                /user/logout = authc
+                /user/userInfo = authc-->
+            </value>
+        </property>
+    </bean>
+
+    <!-- Shiro生命周期处理器 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!--SpringMVC视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--注意，需要是spring3.0.5以上版本。解決js/css/jpg/gif等静态资源访问不到的问题-->
+    <!--<mvc:default-servlet-handler/>-->
+
+    <!--配置资源映射.可以使用<mvc:default-servlet-handler/>来代替-->
+    <mvc:resources mapping="/lib/**" location="/lib/"/>
+    <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/temp/**" location="/temp/"/>
+    <mvc:resources mapping="/icon/**" location="/icon/"/>
+    <mvc:resources mapping="/upload/**" location="/upload/"/>
+    <mvc:resources mapping="/whysu/**" location="/whysu/"/>
+
+    <!-- 引用dubbo服务 -->
+    <dubbo:application name="whysu-mall-manager-web"/>
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+    <dubbo:reference interface="top.whysu.manager.service.ItemService" id="itemService"/>
+    <dubbo:reference interface="top.whysu.manager.service.ItemCatService" id="itemCatService"/>
+    <dubbo:reference interface="top.whysu.manager.service.MemberService" id="memberService"/>
+    <dubbo:reference interface="top.whysu.manager.service.OrderService" id="orderService"/>
+    <dubbo:reference interface="top.whysu.manager.service.SystemService" id="systemService"/>
+    <dubbo:reference interface="top.whysu.manager.service.ThanksService" id="thanksService"/>
+    <dubbo:reference interface="top.whysu.manager.service.UserService" id="userService"/>
+</beans>
