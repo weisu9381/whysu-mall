@@ -49,7 +49,7 @@
             <nav class="nav navbar-nav">
                 <ul class="cl">
                     <!--下拉菜单-->
-                    <li class="dropDown dropDown_hover">
+                    <%--<li class="dropDown dropDown_hover">
                         <!--一级菜单-->
                         <a href="javascript:;" class="dropDown_A">
                             <i class="Hui-iconfont">&#xe600;</i>新增<i class="Hui-iconfont">&#xe6d5;</i>
@@ -67,7 +67,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--%>
                     <li class="navbar-levelone current"><a href="javascript:;">平台</a></li>
                     <li class="navbar-levelone"><a href="javascript:;">财务</a></li>
                     <li><a href="http://whysumall.top.whysu" target="_blank">商城前台</a></li>
@@ -86,7 +86,7 @@
                         </a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" onclick="myselfinfo()">个人信息</a></li>
-                            <li><a onclick="logout()">切换账号</a></li>
+                            <%--<li><a onclick="logout()">切换账号</a></li>--%>
                             <li><a onclick="logout()">退出</a></li>
                         </ul>
                     </li>
@@ -132,6 +132,7 @@
                         <li><a data-href="content-panel" data-title="首页板块管理" href="javascript:void(0)">首页板块管理</a></li>
                         <li><a data-href="content-banner-list" data-title="首页轮播图管理" href="javascript:void(0)">首页轮播图管理</a></li>
                         <li><a data-href="content-index-list" data-title="首页板块内容管理" href="javascript:void(0)">首页板块内容管理</a></li>
+                        <li><a data-href="content-other-panel" data-title="其它板块管理" href="javascript:void(0)">其它板块管理</a></li>
                         <li><a data-href="content-other-list" data-title="其它板块内容管理" href="javascript:void(0)">其它板块内容管理</a></li>
                     </ul>
                 </dd>
@@ -185,7 +186,7 @@
             <dd>
                 <ul>
                     <li><a data-href="member-list" data-title="会员列表" href="javascript:;">会员列表</a></li>
-                    <li><a data-href="member-del" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
+                    <li><a data-href="member-remove" data-title="移除的会员" href="javascript:;">移除的会员</a></li>
                 </ul>
             </dd>
         </dl>
@@ -195,7 +196,7 @@
                 <ul>
                     <li><a data-href="admin-role" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
                     <li><a data-href="admin-permission" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-                    <li><a data-href="admin-list" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a data-href="admin-user" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -259,6 +260,13 @@
     </div>
 </section>
 
+<div class="contextMenu" id="Huiadminmenu">
+    <ul>
+        <li id="closethis">关闭当前 </li>
+        <li id="closeall">关闭全部 </li>
+    </ul>
+</div>
+
 <!--_footer 作为公共模板分离出去-->
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
@@ -267,7 +275,14 @@
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<%--右键标签栏，会弹出“关闭当前，关闭全部，关闭其它”等选项--%>
+<script type="text/javascript" src="lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
+
+    if (window != top){
+        top.location.href = location.href;
+    }
+
     $(function(){
         $("body").Huitab({
             tabBar: ".navbar-wrapper .navbar-levelone",
@@ -280,24 +295,24 @@
     /**导航条：个人信息*/
     function myselfinfo(){
         //H-ui提供的弹出层
-        layer_show('管理员信息','admin-show',360,400);
+        layer_show('管理员信息','index-admin-show',360,400);
     }
 
     /**新增--商品*/
-    function product_add(title,url,w,h){
-        /*var index = layer.open({
+    /*function product_add(title,url,w,h){
+        /!*var index = layer.open({
             type: 2,
             title:title,
             content:url
         });
-        layer.full(index);*/
+        layer.full(index);*!/
         layer_show(title,url,w,h);
-    }
+    }*/
 
     /**新增--用户*/
-    function member_add(title,url,w,h){
+    /*function member_add(title,url,w,h){
         layer_show(title,url,w,h);
-    }
+    }*/
 
     var username="",description="",sex="",phone="",email="",address="",created="",file="";
     /**页面一加载完成就异步请求用户信息*/

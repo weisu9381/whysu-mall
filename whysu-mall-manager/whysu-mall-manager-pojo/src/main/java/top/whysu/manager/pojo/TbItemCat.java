@@ -13,9 +13,9 @@ public class TbItemCat implements Serializable {
 
     private String name;
 
-    private Integer status;
+    private Integer status = 1;
 
-    private Integer sortOrder;
+    private Integer sortOrder = 1;
 
     private Boolean isParent;
 

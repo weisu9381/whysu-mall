@@ -37,6 +37,6 @@ public interface TbItemMapper {
                                             @Param("maxDate") String maxDate,@Param("orderCol") String orderCol,
                                             @Param("orderDir") String orderDir);
 
-    List<TbItem> selectItemFront(@Param("orderCol") String orderCol,@Param("orderDir") String orderDir,
+    List<TbItem> selectItemFront(@Param("cid") Long cid,@Param("orderCol") String orderCol,@Param("orderDir") String orderDir,
                                  @Param("priceGt") int priceGt,@Param("priceLte") int priceLte);
 }

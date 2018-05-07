@@ -14,6 +14,21 @@ public class ZTreeNode implements Serializable{
     private String remark;
     private int num;
 
+    /**
+     * 板块限制商品数量
+     */
+    private int limitNum;
+
+    /**
+     * 板块类型
+     */
+    private int type;
+
+    /**
+     * position=0表示首页板块，position!=0表示其它板块（其中1表示“为您推荐”，2表示“我要捐赠”）
+     */
+    private int position;
+
     public int getId() {
         return id;
     }
@@ -92,5 +107,29 @@ public class ZTreeNode implements Serializable{
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getLimitNum() {
+        return limitNum;
+    }
+
+    public void setLimitNum(int limitNum) {
+        this.limitNum = limitNum;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

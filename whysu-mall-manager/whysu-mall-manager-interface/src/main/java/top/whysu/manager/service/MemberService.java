@@ -32,9 +32,9 @@ public interface MemberService {
     /**彻底删除会员*/
     int deleteMember(Long id);
     /**验证编辑手机邮箱是否存在*/
-    TbMember getMemberByEditEmail(Long id,String email);
+    boolean getMemberByEditEmail(Long id,String email);
     /**验证编辑手机号码是否存在*/
-    TbMember getMemberByEditPhone(Long id,String phone);
+    boolean getMemberByEditPhone(Long id,String phone);
     /**验证编辑用户名是否存在*/
-    TbMember getMemberByEditUsername(Long id,String username);
+    boolean getMemberByEditUsername(Long id,String username);
 }

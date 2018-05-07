@@ -52,6 +52,8 @@
         <log4j.version>2.9.1</log4j.version>
         <shiro.version>1.4.0</shiro.version>
         <json.version>20171018</json.version>
+        <!--fastdfs图片上传下载-->
+        <fastdfs.version>1.27.0.0</fastdfs.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -301,6 +303,24 @@
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>${json.version}</version>
+            </dependency>
+            <!--系统报找不到aopalliance-1.0.jar,这个包是在shiro-all下有的，现在提出来 -->
+            <dependency>
+                <groupId>aopalliance</groupId>
+                <artifactId>aopalliance</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <!--FastDFS,这个需要自己去maven install-->
+            <!--<dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>1.25</version>
+            </dependency>-->
+            <!--FastDFS，别人封装好的fastdfs-client-java-->
+            <dependency>
+                <groupId>net.oschina.zcx7878</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>1.27.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

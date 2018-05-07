@@ -89,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from tb_item_cat
     where id = #{id,jdbcType=BIGINT}
@@ -105,14 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.whysu.manager.pojo.TbItemCat" >
-    insert into tb_item_cat (id, parent_id, name, 
-      status, sort_order, is_parent, 
-      created, updated, icon, 
-      remark)
-    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{icon,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+    insert into tb_item_cat (id, parent_id, name,
+    status, sort_order, is_parent,
+    created, updated, icon,
+    remark)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+    #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT},
+    #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{icon,jdbcType=VARCHAR},
+    #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="top.whysu.manager.pojo.TbItemCat" >
     insert into tb_item_cat
@@ -228,15 +228,15 @@
   <update id="updateByExample" parameterType="map" >
     update tb_item_cat
     set id = #{record.id,jdbcType=BIGINT},
-      parent_id = #{record.parentId,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
-      sort_order = #{record.sortOrder,jdbcType=INTEGER},
-      is_parent = #{record.isParent,jdbcType=BIT},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      updated = #{record.updated,jdbcType=TIMESTAMP},
-      icon = #{record.icon,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR}
+    parent_id = #{record.parentId,jdbcType=BIGINT},
+    name = #{record.name,jdbcType=VARCHAR},
+    status = #{record.status,jdbcType=INTEGER},
+    sort_order = #{record.sortOrder,jdbcType=INTEGER},
+    is_parent = #{record.isParent,jdbcType=BIT},
+    created = #{record.created,jdbcType=TIMESTAMP},
+    updated = #{record.updated,jdbcType=TIMESTAMP},
+    icon = #{record.icon,jdbcType=VARCHAR},
+    remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,4 +287,9 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="getTheBiggestSortOrder" parameterType="java.lang.Long" resultType="java.lang.Integer">
+      SELECT IFNULL(MAX(sort_order),0)
+      FROM tb_item_cat
+      WHERE parent_id = #{parentId}
+  </select>
 </mapper>

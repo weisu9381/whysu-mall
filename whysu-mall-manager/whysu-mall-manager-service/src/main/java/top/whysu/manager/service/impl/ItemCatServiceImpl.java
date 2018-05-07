@@ -1,5 +1,7 @@
 package top.whysu.manager.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class ItemCatServiceImpl implements ItemCatService{
+
+    private Logger logger = LoggerFactory.getLogger(ItemCatServiceImpl.class);
 
     @Autowired
     private TbItemCatMapper tbItemCatMapper;
@@ -56,6 +60,11 @@ public class ItemCatServiceImpl implements ItemCatService{
     public int addItemCat(TbItemCat tbItemCat) {
         tbItemCat.setCreated(new Date());
         tbItemCat.setUpdated(new Date());
+        //先获得父节点为parentId的所有子节点的最大的排序值，然后加 1
+        //在数据库中使用了 SELECT IFNULL(MAX(sort_order),0) 如果是空表的话会返回null,使用IFNULL()函数设置为null时的值是0
+        int biggestOrder = tbItemCatMapper.getTheBiggestSortOrder(tbItemCat.getParentId());
+        tbItemCat.setSortOrder(biggestOrder + 1);
+
         if(tbItemCatMapper.insert(tbItemCat) != 1){
             throw new WhysuMallException("添加商品分类失败");
         }

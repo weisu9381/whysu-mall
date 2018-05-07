@@ -2,6 +2,8 @@ package top.whysu.manager.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -19,6 +21,8 @@ import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService{
+
+    private Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
 
     @Autowired
     private TbMemberMapper tbMemberMapper;
@@ -62,7 +66,7 @@ public class MemberServiceImpl implements MemberService{
         try {
             //分页
             PageHelper.startPage(start/length + 1, length);
-            List<TbMember> list = tbMemberMapper.selectByRemoveMemeberInfo(search,minDate,maxDate,orderCol,orderDir);
+            List<TbMember> list = tbMemberMapper.selectByRemoveMemeberInfo("%"+search+"%",minDate,maxDate,orderCol,orderDir);
             PageInfo<TbMember> pageInfo = new PageInfo<>(list);
 
             for(TbMember tbMember : list){
@@ -236,35 +240,66 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public TbMember getMemberByEditEmail(Long id, String email) {
-        TbMember tbMember=getMemberById(id);
-        TbMember newTbMember=null;
-        if(tbMember.getEmail()==null||!tbMember.getEmail().equals(email)){
-            newTbMember=getMemberByEmail(email);
+    public boolean getMemberByEditEmail(Long id, String email) {
+        TbMember tbMember = tbMemberMapper.selectByPrimaryKey(id);
+        if(tbMember == null){
+            throw new WhysuMallException("MemberServiceImpl: 通过ID获取用户失败");
         }
-        newTbMember.setPassword("");
-        return newTbMember;
+        if(tbMember.getEmail().equals(email)){
+            //新邮箱和旧邮箱一样，也是可以用的
+            return true;
+        }else{
+            TbMember newMember = getMemberByEmail(email);
+            if(newMember != null){
+                //说明新邮箱已经被注册，不可使用
+                return false;
+            }else{
+                //说明新邮箱未被注册，可使用
+                return true;
+            }
+        }
     }
 
     @Override
-    public TbMember getMemberByEditPhone(Long id, String phone) {
-        TbMember tbMember=getMemberById(id);
-        TbMember newTbMember=null;
-        if(tbMember.getPhone()==null||!tbMember.getPhone().equals(phone)){
-            newTbMember=getMemberByPhone(phone);
+    public boolean getMemberByEditPhone(Long id, String phone) {
+        TbMember tbMember = tbMemberMapper.selectByPrimaryKey(id);
+        if(tbMember == null){
+            throw new WhysuMallException("MemberServiceImpl: 通过ID获取用户失败");
         }
-        newTbMember.setPassword("");
-        return newTbMember;
+        if(tbMember.getPhone().equals(phone)){
+            //新号码和原号码一样，也是可以用的
+            return true;
+        }else{
+            TbMember newMember = getMemberByPhone(phone);
+            if(newMember != null){
+                //说明新号码已经被注册，不可使用
+                return false;
+            }else{
+                //说明新号码未被注册，可使用
+                return true;
+            }
+        }
     }
 
     @Override
-    public TbMember getMemberByEditUsername(Long id, String username) {
-        TbMember tbMember=getMemberById(id);
-        TbMember newTbMember=null;
-        if(tbMember.getUsername()==null||!tbMember.getUsername().equals(username)){
-            newTbMember=getMemberByUsername(username);
+    public boolean getMemberByEditUsername(Long id, String username) {
+        TbMember tbMember = tbMemberMapper.selectByPrimaryKey(id);
+        if(tbMember == null){
+            throw new WhysuMallException("MemberServiceImpl: 通过ID获取用户失败");
         }
-        newTbMember.setPassword("");
-        return newTbMember;
+        if(tbMember.getUsername().equals(username)){
+            //新用户名和原用户名一样，也是可以用的
+            return true;
+        }else{
+            TbMember newMember = getMemberByUsername(username);
+            if(newMember != null){
+                //说明用户名已经被注册，不可使用
+                return false;
+            }else{
+                //说明用户名未被注册，可使用
+                return true;
+            }
+        }
+
     }
 }

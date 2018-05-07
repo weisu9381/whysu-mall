@@ -399,36 +399,51 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 我有点方，暂时不知道这方法干嘛用的，还有boolean类型的方法你用get来命名
+     *
      */
     @Override
     public boolean getUserByEditName(Long id, String username) {
-        TbUser tbUser=getUserById(id);
-        boolean result=true;
-        if(tbUser.getUsername()==null||!tbUser.getUsername().equals(username)){
-            result=isUsernameExist(username);
+        TbUser tbUser = tbUserMapper.selectByPrimaryKey(id);
+        if(tbUser==null){
+            throw new WhysuMallException("通过ID获取用户失败");
         }
-        return result;
+        if(tbUser.getUsername().equals(username)){
+            //新用户名和原用户名一样，也是可以用的
+            return true;
+        }else{
+            //如果新用户名已经被注册，说明该新用户不可用，返回flase
+            return !isUsernameExist(username);
+        }
     }
 
     @Override
     public boolean getUserByEditPhone(Long id, String phone) {
-        TbUser tbUser=getUserById(id);
-        boolean result=true;
-        if(tbUser.getPhone()==null||!tbUser.getPhone().equals(phone)){
-            result=isUserPhoneExist(phone);
+        TbUser tbUser = tbUserMapper.selectByPrimaryKey(id);
+        if(tbUser==null){
+            throw new WhysuMallException("通过ID获取用户失败");
         }
-        return result;
+        if(tbUser.getPhone().equals(phone)){
+            //新号码和旧号码一样，也是可以用的
+            return true;
+        }else{
+            //如果新号码已被注册，说明该号码不可用
+            return !isUserPhoneExist(phone);
+        }
     }
 
     @Override
     public boolean getUserByEditEmail(Long id, String email) {
-        TbUser tbUser=getUserById(id);
-        boolean result=true;
-        if(tbUser.getEmail()==null||!tbUser.getEmail().equals(email)){
-            result=isUserEmailExist(email);
+        TbUser tbUser = tbUserMapper.selectByPrimaryKey(id);
+        if(tbUser==null){
+            throw new WhysuMallException("通过ID获取用户失败");
         }
-        return result;
+        if(tbUser.getEmail().equals(email)){
+            //新邮箱和旧邮箱一样，也是可以用的
+            return true;
+        }else{
+            //如果新邮箱已经被使用，说明该邮箱不可用
+            return !isUserEmailExist(email);
+        }
     }
 
     @Override

@@ -29,4 +29,7 @@ public interface TbItemCatMapper {
     int updateByPrimaryKeySelective(TbItemCat record);
 
     int updateByPrimaryKey(TbItemCat record);
+
+    /*获得parentId的所有子节点中最大的 sort_order（排序优先值）*/
+    int getTheBiggestSortOrder(@Param("parentId") Long parent_id);
 }

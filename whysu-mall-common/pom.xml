@@ -95,6 +95,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
         </dependency>
+        <!--FastDFS,这个需要自己去maven install-->
+        <!--<dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+        </dependency>-->
     </dependencies>
 
 </project>

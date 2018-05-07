@@ -227,8 +227,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="top.whysu.manager.pojo.TbItemDesc" >
     update tb_item_desc
-    set created = #{created,jdbcType=TIMESTAMP},
-      updated = #{updated,jdbcType=TIMESTAMP}
+    set
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      item_desc = #{itemDesc,jdbcType=LONGVARCHAR}
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
 </mapper>

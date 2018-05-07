@@ -18,12 +18,19 @@
     <task:annotation-driven executor="myexecutor"/>-->
 
     <!-- 使用dubbo发布服务 -->
+    <!--实现类-->
+    <bean id="itemServiceImpl" class="top.whysu.manager.service.impl.ItemServiceImpl"/>
+    <bean id="memberServiceImpl" class="top.whysu.manager.service.impl.MemberServiceImpl"/>
+    <bean id="itemCatServiceImpl" class="top.whysu.manager.service.impl.ItemCatServiceImpl"/>
+    <bean id="orderServiceImpl" class="top.whysu.manager.service.impl.OrderServiceImpl"/>
+    <bean id="systemServiceImpl" class="top.whysu.manager.service.impl.SystemServiceImpl"/>
+    <bean id="thanksServiceImpl" class="top.whysu.manager.service.impl.ThanksServiceimpl"/>
+    <bean id="userServiceImpl" class="top.whysu.manager.service.impl.UserServiceImpl"/>
     <!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="whysu-mall-manager" />
-    <dubbo:registry protocol="zookeeper"
-                    address="127.0.0.1:2181" />
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
     <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="-1" />
+    <dubbo:protocol name="dubbo" port="20880" />
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="top.whysu.manager.service.ItemService" ref="itemServiceImpl" timeout="10000"/>
     <dubbo:service interface="top.whysu.manager.service.MemberService" ref="memberServiceImpl" timeout="10000"/>
@@ -32,12 +39,6 @@
     <dubbo:service interface="top.whysu.manager.service.SystemService" ref="systemServiceImpl" timeout="10000"/>
     <dubbo:service interface="top.whysu.manager.service.ThanksService" ref="thanksServiceImpl" timeout="10000"/>
     <dubbo:service interface="top.whysu.manager.service.UserService" ref="userServiceImpl" timeout="10000"/>
-
-    <bean id="itemServiceImpl" class="top.whysu.manager.service.impl.ItemServiceImpl"/>
-    <bean id="memberServiceImpl" class="top.whysu.manager.service.impl.MemberServiceImpl"/>
-    <bean id="itemCatServiceImpl" class="top.whysu.manager.service.impl.ItemCatServiceImpl"/>
-    <bean id="orderServiceImpl" class="top.whysu.manager.service.impl.OrderServiceImpl"/>
-    <bean id="systemServiceImpl" class="top.whysu.manager.service.impl.SystemServiceImpl"/>
-    <bean id="thanksServiceImpl" class="top.whysu.manager.service.impl.ThanksServiceimpl"/>
-    <bean id="userServiceImpl" class="top.whysu.manager.service.impl.UserServiceImpl"/>
+    <dubbo:service interface="top.whysu.manager.service.PanelService" ref="panelServiceImpl" timeout="10000"/>
+    <dubbo:service interface="top.whysu.manager.service.ContentService" ref="contentServiceImpl" timeout="10000"/>
 </beans>

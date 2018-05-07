@@ -355,7 +355,7 @@
             balance     = #{balance,jdbcType=DECIMAL}
         WHERE id = #{id,jdbcType=BIGINT}
     </update>
-    <select id="selectByMemberInfo">
+    <select id="selectByMemberInfo" parameterType="string" resultMap="BaseResultMap">
         SELECT * FROM tb_member
         WHERE
         state != 2
@@ -368,17 +368,16 @@
         OR
         sex LIKE #{search}
         OR
-        address LIKE #{search}
-        )
+        address LIKE #{search})
         <if test="minDate != null and minDate != '' and maxDate != null and maxDate != ''">
             AND
             created BETWEEN #{minDate} AND #{maxDate}
         </if>
         ORDER BY
-        #{orderCol}
-        #{orderDir}
+        ${orderCol}
+        ${orderDir}
     </select>
-    <select id="selectByRemoveMemeberInfo">
+    <select id="selectByRemoveMemeberInfo" parameterType="string" resultMap="BaseResultMap">
         SELECT * FROM tb_member
         WHERE
         state = 2
@@ -397,7 +396,7 @@
             created BETWEEN #{minDate} AND #{maxDate}
         </if>
         ORDER BY
-        #{orderCol}
-        #{orderDir}
+        ${orderCol}
+        ${orderDir}
     </select>
 </mapper>

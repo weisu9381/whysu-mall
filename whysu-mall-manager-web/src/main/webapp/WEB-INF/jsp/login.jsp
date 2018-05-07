@@ -111,7 +111,7 @@
             var IsBy = $.idcode.validateCode();  //调用返回值，返回值结果为true或者false
             if(IsBy){
                 $.ajax({
-                    url: '${URL}/user/login?t='+ new Date().getTime(),//加随机数防止缓存
+                    url: '${URL}/login?t='+ new Date().getTime(),//加随机数防止缓存
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -131,7 +131,9 @@
                             //转到首页
                             window.location.href = "${URL}/";
                         }else{
-                            layer.msg(data.msg,{time:2000, icon:2});
+                            layer.msg(data.message,{time:2000, icon:2});
+                            $.idcode.setCode();
+                            $("#Txtidcode").val('');
                         }
                     },
                     error: function (XMLHttpRequest) {
@@ -139,11 +141,14 @@
                             title: '错误信息',
                             icon: 2
                         });
+                        $.idcode.setCode();
+                        $("#Txtidcode").val('');
                     }
                 });
             }else {
                 layer.msg("验证码错误",{time:1000,icon:2});
                 $.idcode.setCode();
+                $("#Txtidcode").val('');
             }
         });
 

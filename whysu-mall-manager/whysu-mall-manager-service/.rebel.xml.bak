@@ -2,13 +2,13 @@
 <application generated-by="intellij" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_1.xsd">
 
 	<classpath>
-		<dir name="D:/projects/IdeaProjects/whysu-mall/whysu-mall-manager/whysu-mall-manager-service/target/classes">
+		<dir name="E:\usr\tomcat8081service\webapps\whysu-mall-manager-service\WEB-INF\classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="D:/projects/IdeaProjects/whysu-mall/whysu-mall-manager/whysu-mall-manager-service/src/main/webapp">
+			<dir name="E:\usr\tomcat8081service\webapps\whysu-mall-manager-service">
 			</dir>
 		</link>
 	</web>

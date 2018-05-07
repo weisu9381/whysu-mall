@@ -29,8 +29,8 @@
     <!--webuploader-->
     <link href="lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css"/>
     <!--富文本编辑器KindEditor-->
-    <link rel="stylesheet" href="lib/kindeditor/themes/default/default.css" />
-    <link rel="stylesheet" href="lib/kindeditor/plugins/code/prettify.css" />
+    <link rel="stylesheet" href="lib/kindeditor/themes/default/default.css"/>
+    <link rel="stylesheet" href="lib/kindeditor/plugins/code/prettify.css"/>
 </head>
 <body>
 <div class="page-container">
@@ -141,111 +141,111 @@
 <script type="text/javascript">
     /*富文本编辑器KindEditor*/
     var editor;
-    /*使用webuploader上传的缩略图*/
-    var images=null;
+    /*使用webuploader上传的图片的 url地址集合*/
+    var images = null;
 
-     /*选择商品类别*/
-     function chooseCategory(){
-         layer_show("选择商品分类","choose-category",300,510);
-     }
+    /*选择商品类别*/
+    function chooseCategory() {
+        layer_show("选择商品分类", "choose-category", 300, 510);
+    }
 
-     /*与“选择商品类别”弹出的choose-category页面，使用parent调用该方法*/
-     function giveCidAndCname(cid,cname){
-         $("#cid").val(cid);
-         $("#cname").val(cname);
-     }
+    /*与“选择商品类别”弹出的choose-category页面，使用parent调用该方法*/
+    function getCidAndName(cid, cname) {
+        $("#cid").val(cid);
+        $("#cname").val(cname);
+    }
 
-     /*为jquery.validate新增一个自定义的方法*/
-     jQuery.validator.addMethod("decimalsValue",function(value, element) {
-         var decimalsValue =/^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/ ;
-         return this.optional(element) || (decimalsValue.test(value));
-     }, "金额必须大于0并且只能精确到分");
+    /*为jquery.validate新增一个自定义的方法*/
+    jQuery.validator.addMethod("decimalsValue", function (value, element) {
+        var decimalsValue = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/;
+        return this.optional(element) || (decimalsValue.test(value));
+    }, "金额必须大于0并且只能精确到分");
 
-     /*点击“保存发布”之前，需要进行“表单验证”*/
-     $("#product-add").validate({
-         rules:{
-             title:{
-                 required:true
-             },
-             sellpoint:{
-                 required:true
-             },
-             cname:{
-                 required:true
-             },
-             price:{
-                 decimalsValue:true,
-                 required:true,
-                 maxlength:10
-             },
-             num:{
-                 digits:true,
-                 required:true,
-                 maxlength:5
-             },
-             limitNum:{
-                 digits:true,
-                 required:true,
-                 maxlength:4
-             }
-         },
-         onkeyup:false,
-         focusCleanup:false,
-         success:"valid",
-         submitHandler:function (form) {
-             if(images==null){
-                 layer.alert("请上传商品展示缩略图！",{title:'错误信息',icon:0});
-                 return;
-             }
-             var index =layer.load(3);
-             editor.sync();
-             $(form).ajaxSubmit({
-                 url: "${URL}/item/add",
-                 type: "POST",
-                 success: function (data) {
-                     layer.close(index);
-                     if(data.success == true){
-                         if(parent.location.pathname!='/'){
-                             parent.productCount();
-                             parent.refresh();
-                             parent.msgSuccess("添加成功!");
-                             var index = parent.layer.getFrameIndex(window.name);
-                             parent.layer.close(index);
-                         }else{
-                             layer.confirm('添加成功!', {
-                                 btn: ['确认'],icon: 1
-                             }, function(){
-                                 var index = parent.layer.getFrameIndex(window.name);
-                                 parent.layer.close(index);
-                             });
-                         }
-                     }else{
-                         layer.alert(data.message, {title: '错误信息',icon: 2});
-                     }
-                 },
-                 error:function(XMLHttpRequest) {
-                     layer.close(index);
-                     layer.alert('数据处理失败! 错误码:'+XMLHttpRequest.status,{title: '错误信息',icon: 2});
-                 }
-             });
-         }
-     });
+    /*点击“保存发布”之前，需要进行“表单验证”*/
+    $("#product-add").validate({
+        rules: {
+            title: {
+                required: true
+            },
+            sellPoint: {
+                required: true
+            },
+            cname: {
+                required: true
+            },
+            price: {
+                decimalsValue: true,
+                required: true,
+                maxlength: 10
+            },
+            num: {
+                digits: true,
+                required: true,
+                maxlength: 5
+            },
+            limitNum: {
+                digits: true,
+                required: true,
+                maxlength: 4
+            }
+        },
+        onkeyup: false,
+        focusCleanup: false,
+        success: "valid",
+        submitHandler: function (form) {
+            if (images == null) {
+                layer.alert("请上传商品展示缩略图！", {title: '错误信息', icon: 0});
+                return;
+            }
+            var index = layer.load(3);
+            editor.sync();
+            $(form).ajaxSubmit({
+                url: "${URL}/item/add",
+                type: "POST",
+                success: function (data) {
+                    layer.close(index);
+                    if (data.success == true) {
+                        if (parent.location.pathname != '/') {
+                            parent.productCount();
+                            parent.refresh();
+                            parent.msgSuccess("添加成功!");
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        } else {
+                            layer.confirm('添加成功!', {
+                                btn: ['确认'], icon: 1
+                            }, function () {
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(index);
+                            });
+                        }
+                    } else {
+                        layer.alert(data.message, {title: '错误信息', icon: 2});
+                    }
+                },
+                error: function (XMLHttpRequest) {
+                    layer.close(index);
+                    layer.alert('数据处理失败! 错误码:' + XMLHttpRequest.status, {title: '错误信息', icon: 2});
+                }
+            });
+        }
+    });
 
-    KindEditor.ready(function(K){
-        editor = K.create('textarea[name="detail"]',{
-            cssPath : 'lib/kindeditor/plugins/code/prettify.css',
-            uploadJson : '${URL}/kindeditor/imageUpload',
-            fileManagerJson : '${URL}/kindeditor/imageUpload',
-            allowFileManager : false,
-            height : '400px',
-            afterCreate : function() {
+    KindEditor.ready(function (K) {
+            editor = K.create('textarea[name="detail"]', {
+            cssPath: 'lib/kindeditor/plugins/code/prettify.css',
+            uploadJson: '${URL}/fastdfs/kindEditor/upload/image/sample',
+            fileManagerJson: '${URL}/fastdfs/kindEditor/upload/image/sample',
+            allowFileManager: true,//允许批量上传
+            height: '400px',
+            afterCreate: function () {
                 var self = this;
                 //Ctrl+Enter提交表单
-                K.ctrl(document, 13, function() {
+                K.ctrl(document, 13, function () {
                     self.sync();
                     document.forms['product-add'].submit();
                 });
-                K.ctrl(self.edit.doc, 13, function() {
+                K.ctrl(self.edit.doc, 13, function () {
                     self.sync();
                     document.forms['product-add'].submit();
                 });
@@ -310,7 +310,7 @@
                         if (this.width != 1 || this.height != 1) {
                             support = false;
                         }
-                    }
+                    };
                     data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
                     return support;
                 })(),
@@ -402,30 +402,35 @@
 
             // 实例化
             uploader = WebUploader.create({
+                // 选择文件的按钮。
                 pick: {
                     id: '#filePicker-2',
                     label: '点击选择图片'
                 },
+                //设置传入服务器的参数，需要借助uploadBeforeSend方法：uploader.on('uploadBeforeSend',function(object,data,header){ ... });
                 formData: {
                     uid: 123
                 },
                 dnd: '#dndArea',
                 paste: '#uploader',
+                //swf路径
                 swf: 'lib/webuploader/0.1.5/Uploader.swf',
                 chunked: false,
                 chunkSize: 512 * 1024,
-                server: '${URL}/image/imageUpload',
+                //文件接收服务器
+                server: '${URL}/fastdfs/upload/image/sample',
                 // runtimeOrder: 'flash',
 
+                // 限制能够选择的文件类型，可选。
                 accept: {
                     title: 'Images',
                     extensions: 'gif,jpg,jpeg,bmp,png',
-                    //mimeTypes: 'image/*'
+                    mimeTypes: 'image/gif,image/jpg,image/jpeg,image/bmp,image/png'
                 },
 
                 // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
                 disableGlobalDnd: true,
-                fileNumLimit: 5,
+                fileNumLimit: 5,//限制上传个数
                 fileSizeLimit: 25 * 1024 * 1024,    // 25 M
                 fileSingleSizeLimit: 5 * 1024 * 1024    // 5 M
             });
@@ -651,7 +656,7 @@
                     stats = uploader.getStats();
                     if (stats.uploadFailNum) {
                         text = '已成功上传' + stats.successNum + '张照片，' +
-                            stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#" style="color:blue;">重新上传</a>失败图片或<a class="ignore" href="#" style="color:blue;">忽略</a>'
+                            stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#" style="color:blue;">重新上传</a>失败图片或<a class="ignore" href="#" style="color:blue;">忽略所有</a>'
                     }
 
                 } else {
@@ -788,23 +793,30 @@
                 updateTotalProgress();
 
             };
-            // 文件上传成功
-            uploader.on( 'uploadSuccess', function( file,data ) {
 
-                if(data.success==true){
-                    if(images==null){
-                        images=data.result;
-                    }else{
-                        images+=","+data.result;
-                    }
-                    $("#image").val(images);
-                }else{
-                    alert("上传失败:"+data.message)
+            //判断文件是否上传成功，return true表示上传成功，return false表示上传失败，由自己来写
+            uploader.on("uploadAccept", function (file, data) {
+                //webuploader对于后端返回的数据格式是没有要求的
+                //如果是json格式的话，直接使用data.success来取值就好，如果不是json格式的话，使用data._raw来获取值
+                if (data.success === true) {
+                    return true;
+                } else {
+                    return false;
                 }
-
             });
 
+            // 文件上传成功(返回的json格式中含有 httpUrl 这个值)
+            uploader.on('uploadSuccess', function (file, data) {
+                //前面使用uploadAccept方法判断是否成功了
+                if (images == null) {
+                    images = data.httpUrl;
+                } else {
+                    images += "," + data.httpUrl;
+                }
+                /*console.log("images="+images);*/
+                $("#image").val(images);
 
+            });
 
             uploader.on('all', function (type) {
                 var stats;
@@ -825,13 +837,13 @@
             });
 
             uploader.onError = function (code) {
-                if(code=="Q_TYPE_DENIED"){
+                if (code == "Q_TYPE_DENIED") {
                     alert("文件类型不支持，仅支持gif,jpg,jpeg,bmp,png格式图片");
-                }else if(code=="F_DUPLICATE"){
+                } else if (code == "F_DUPLICATE") {
                     alert("文件已选中，请勿重复上传");
-                }else if(code="F_EXCEED_SIZE"){
+                } else if (code = "F_EXCEED_SIZE") {
                     alert("文件大小超出限制，单张图片不得超过5MB");
-                } else{
+                } else {
                     alert('Error: ' + code);
                 }
 

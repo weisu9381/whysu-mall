@@ -68,6 +68,9 @@
         callback: {
             beforeClick: function(treeId, treeNode) {
                 if (treeNode.isParent) {
+                    layer.confirm('请选择子节点!', {
+                        btn: ['知道了'], icon: 2
+                    });
                     return false;
                 } else {
                     var cid=treeNode.id;
@@ -79,7 +82,7 @@
                         });
                         return true;
                     }
-                    parent.giveCidAndCname(cid,cname);
+                    parent.getCidAndName(cid,cname);
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.layer.close(index);
                     return true;

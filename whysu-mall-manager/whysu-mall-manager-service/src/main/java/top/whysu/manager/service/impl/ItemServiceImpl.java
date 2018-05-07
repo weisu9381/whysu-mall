@@ -2,6 +2,8 @@ package top.whysu.manager.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
@@ -29,6 +31,8 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService{
+
+    private final static Logger log= LoggerFactory.getLogger(ItemServiceImpl.class);
 
     @Autowired
     private TbItemMapper tbItemMapper;
@@ -90,7 +94,7 @@ public class ItemServiceImpl implements ItemService{
     public DataTablesResult getItemSearchList(int draw, int start, int length, int cid, String search, String minDate, String maxDate, String orderCol, String orderDir) {
         DataTablesResult result = new DataTablesResult();
         //分页执行查询结果
-        PageHelper.startPage(start/length + 1);
+        PageHelper.startPage(start/length + 1,length);
         List<TbItem> list = tbItemMapper.selectItemByMultiCondition(cid,"%"+search+"%",minDate,maxDate,orderCol,orderDir);
         PageInfo<TbItem> pageInfo = new PageInfo<>(list);
         result.setRecordsFiltered((int) pageInfo.getTotal());
@@ -157,8 +161,12 @@ public class ItemServiceImpl implements ItemService{
         if(tbItemDescMapper.insert(tbItemDesc) != 1){
             throw new WhysuMallException("添加商品详情失败");
         }
-        //发送消息同步索引库
-        sendRefreshESMessage("add",id);
+        /*//发送消息同步索引库
+        try {
+            sendRefreshESMessage("add",id);
+        }catch (Exception e){
+            log.error("同步索引出错");
+        }*/
         return getNormalItemById(id);
     }
 
@@ -179,15 +187,20 @@ public class ItemServiceImpl implements ItemService{
         TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(id);
         tbItemDesc.setItemId(id);
         tbItemDesc.setItemDesc(itemDto.getDetail());
+        log.info("itemDto.getDetail()="+itemDto.getDetail());
         tbItemDesc.setCreated(oldTbItem.getCreated());
         tbItemDesc.setUpdated(new Date());
         if(tbItemDescMapper.updateByPrimaryKey(tbItemDesc) != 1){
             throw new WhysuMallException("更新商品详情失败");
         }
-        //同步缓存
+       /* //同步缓存
         deleteProductDetRedis(id);
         //发送消息同步索引库
-        sendRefreshESMessage("update",id);
+        try {
+            sendRefreshESMessage("add",id);
+        }catch (Exception e){
+            log.error("同步索引出错");
+        }*/
         return getNormalItemById(id);
     }
 

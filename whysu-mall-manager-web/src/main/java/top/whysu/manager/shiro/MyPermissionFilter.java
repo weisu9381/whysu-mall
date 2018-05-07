@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class MyPermissionFilter extends AuthorizationFilter {
 
-    private static final Logger log= LoggerFactory.getLogger(MyPermissionFilter.class);
+    private Logger log = LoggerFactory.getLogger(MyPermissionFilter.class);
 
     /**
      *
@@ -38,7 +38,6 @@ public class MyPermissionFilter extends AuthorizationFilter {
                 log.info("未登录或登录时间过长,不是ajax！");
                 this.saveRequestAndRedirectToLogin(request, response);
             }
-            //isPermitted = false;
         } else {
             if (perms != null && perms.length > 0) {
                 if (perms.length == 1) {
@@ -55,7 +54,7 @@ public class MyPermissionFilter extends AuthorizationFilter {
                     log.info("没有该权限，并且是Ajax请求");
                     Map<String, Object> resultMap = new HashMap<String, Object>();
                     resultMap.put("success", false);
-                    resultMap.put("message", "抱歉，您没有该权限！看就看，你点它干什么...");
+                    resultMap.put("message", "抱歉，您没有该权限！");
                     FilterUtil.out(response, resultMap);
                 } else {
                     return isPermitted;
@@ -64,5 +63,7 @@ public class MyPermissionFilter extends AuthorizationFilter {
         }
         return isPermitted;
     }
+
+
 
 }

@@ -11,10 +11,13 @@
     http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
+    <context:component-scan base-package="top.whysu.manager"/>
+    <!-- 加载配置文件 -->
+    <context:property-placeholder location="classpath:conf.properties" />
+
     <!--启动对@AspectJ注解的支持-->
     <aop:aspectj-autoproxy/>
 
-    <context:component-scan base-package="top.whysu.manager"/>
 
     <!--会自动注册RequestMappingHandlerMapping和RequestMappingHandlerAdapter,是支持SpringMVC为@Controller分发请求所必需的-->
     <mvc:annotation-driven/>
@@ -85,6 +88,16 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- 配置多媒体解析器 -->
+    <!-- 定义文件上传解析器,使用webuploader上传时，在Controller中可以使用@RequestParam("file") MultipartFile file来获取 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设定默认编码 -->
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+        <!--<property name="maxUploadSize" value="5242880"></property>-->
+    </bean>
+
     <!--注意，需要是spring3.0.5以上版本。解決js/css/jpg/gif等静态资源访问不到的问题-->
     <!--<mvc:default-servlet-handler/>-->
 
@@ -106,4 +119,6 @@
     <dubbo:reference interface="top.whysu.manager.service.SystemService" id="systemService"/>
     <dubbo:reference interface="top.whysu.manager.service.ThanksService" id="thanksService"/>
     <dubbo:reference interface="top.whysu.manager.service.UserService" id="userService"/>
+    <dubbo:reference interface="top.whysu.manager.service.PanelService" id="panelService"/>
+    <dubbo:reference interface="top.whysu.manager.service.ContentService" id="contentService" />
 </beans>
