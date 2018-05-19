@@ -134,7 +134,11 @@ public class ItemServiceImpl implements ItemService{
             throw new WhysuMallException("删除商品详情失败");
         }
         //发送消息同步索引库
-        sendRefreshESMessage("delete",id);
+        try {
+            sendRefreshESMessage("delete",id);
+        }catch (Exception e){
+            log.error("ActiveMQ发送“同步索引(删除)”消息出错");
+        }
         return 0;
     }
 
@@ -161,12 +165,12 @@ public class ItemServiceImpl implements ItemService{
         if(tbItemDescMapper.insert(tbItemDesc) != 1){
             throw new WhysuMallException("添加商品详情失败");
         }
-        /*//发送消息同步索引库
+        //发送消息同步索引库
         try {
             sendRefreshESMessage("add",id);
         }catch (Exception e){
-            log.error("同步索引出错");
-        }*/
+            log.error("ActiveMQ发送“同步索引(添加)”消息出错");
+        }
         return getNormalItemById(id);
     }
 
@@ -193,14 +197,14 @@ public class ItemServiceImpl implements ItemService{
         if(tbItemDescMapper.updateByPrimaryKey(tbItemDesc) != 1){
             throw new WhysuMallException("更新商品详情失败");
         }
-       /* //同步缓存
+        //同步缓存
         deleteProductDetRedis(id);
         //发送消息同步索引库
         try {
             sendRefreshESMessage("add",id);
         }catch (Exception e){
-            log.error("同步索引出错");
-        }*/
+            log.error("ActiveMQ发送“同步索引(更新)”消息出错");
+        }
         return getNormalItemById(id);
     }
 

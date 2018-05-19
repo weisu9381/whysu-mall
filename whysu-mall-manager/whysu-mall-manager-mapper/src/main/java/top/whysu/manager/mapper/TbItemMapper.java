@@ -2,6 +2,7 @@ package top.whysu.manager.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import top.whysu.manager.dto.front.SearchItem;
 import top.whysu.manager.pojo.TbItem;
 import top.whysu.manager.pojo.TbItemExample;
 
@@ -37,6 +38,11 @@ public interface TbItemMapper {
                                             @Param("maxDate") String maxDate,@Param("orderCol") String orderCol,
                                             @Param("orderDir") String orderDir);
 
-    List<TbItem> selectItemFront(@Param("cid") Long cid,@Param("orderCol") String orderCol,@Param("orderDir") String orderDir,
+    List<TbItem> selectItemFront(@Param("cid") Long cid,
+                                 @Param("orderCol") String orderCol,@Param("orderDir") String orderDir,
                                  @Param("priceGt") int priceGt,@Param("priceLte") int priceLte);
+
+    List<SearchItem> getItemList();
+
+    SearchItem getItemById(@Param("id") Long id);
 }

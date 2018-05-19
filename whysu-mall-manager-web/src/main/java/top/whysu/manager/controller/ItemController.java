@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import top.whysu.common.pojo.DataTablesResult;
 import top.whysu.common.pojo.Result;
 import top.whysu.common.utils.ResultUtil;
+import top.whysu.front.service.SearchItemService;
 import top.whysu.manager.dto.ItemDto;
+import top.whysu.manager.dto.front.EsInfo;
 import top.whysu.manager.pojo.TbItem;
 import top.whysu.manager.service.ItemService;
 
@@ -23,6 +25,9 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private SearchItemService searchItemService;
 
     @RequestMapping(value = "/item/{itemId}", method = RequestMethod.GET)
     @ApiOperation(value = "通过Id获取商品")
@@ -120,5 +125,21 @@ public class ItemController {
 
         TbItem tbItem=itemService.updateItem(id,itemDto);
         return new ResultUtil<TbItem>().setData(tbItem);
+    }
+
+    @RequestMapping(value = "/item/importIndex",method = RequestMethod.GET)
+    @ApiOperation(value = "导入商品索引至ES")
+    public Result<Object> importIndex(){
+
+        searchItemService.importAllItems();
+        return new ResultUtil<Object>().setData(null);
+    }
+
+    @RequestMapping(value = "/es/getInfo",method = RequestMethod.GET)
+    @ApiOperation(value = "获取ES信息")
+    public Result<Object> getESInfo(){
+
+        EsInfo esInfo=searchItemService.getEsInfo();
+        return new ResultUtil<Object>().setData(esInfo);
     }
 }

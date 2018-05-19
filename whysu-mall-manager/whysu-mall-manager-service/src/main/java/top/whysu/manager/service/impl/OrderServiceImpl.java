@@ -1,5 +1,7 @@
 package top.whysu.manager.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.whysu.common.exception.WhysuMallException;
@@ -24,6 +26,23 @@ public class OrderServiceImpl implements OrderService{
     private TbOrderItemMapper tbOrderItemMapper;
     @Autowired
     private TbOrderShippingMapper tbOrderShippingMapper;
+
+    @Override
+    public DataTablesResult getOrderList(int draw, int start, int length, String search, String orderCol, String orderDir) {
+
+        DataTablesResult result=new DataTablesResult();
+        //分页
+        PageHelper.startPage(start/length+1,length);
+        List<TbOrder> list = tbOrderMapper.selectByMulti("%"+search+"%",orderCol,orderDir);
+        PageInfo<TbOrder> pageInfo=new PageInfo<>(list);
+
+        result.setRecordsFiltered((int)pageInfo.getTotal());
+        result.setRecordsTotal(Math.toIntExact(cancelOrder()));
+
+        result.setDraw(draw);
+        result.setData(list);
+        return result;
+    }
 
     @Override
     public DataTablesResult getOrderList() {

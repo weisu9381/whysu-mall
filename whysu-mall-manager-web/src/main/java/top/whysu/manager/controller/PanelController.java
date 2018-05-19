@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import top.whysu.common.pojo.Result;
 import top.whysu.common.pojo.ZTreeNode;
 import top.whysu.common.utils.ResultUtil;
+import top.whysu.content.service.PanelService;
 import top.whysu.manager.pojo.TbPanel;
-import top.whysu.manager.service.PanelService;
 
 import java.util.List;
 

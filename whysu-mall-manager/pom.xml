@@ -33,8 +33,8 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <path>/whysu-mall-manager-service</path>
-                    <port>8680</port>
+                    <path>/</path>
+                    <port>8081</port>
                     <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>

@@ -69,7 +69,7 @@
                         </ul>
                     </li>--%>
                     <li class="navbar-levelone current"><a href="javascript:;">平台</a></li>
-                    <li class="navbar-levelone"><a href="javascript:;">财务</a></li>
+                    <%--<li class="navbar-levelone"><a href="javascript:;">财务</a></li>--%>
                     <li><a href="http://whysumall.top.whysu" target="_blank">商城前台</a></li>
                 </ul>
             </nav>
@@ -90,17 +90,17 @@
                             <li><a onclick="logout()">退出</a></li>
                         </ul>
                     </li>
-                    <li id="LockScreen">
+                    <%--<li id="LockScreen">
                         <a href="lock-screen" title="锁屏">
                             <i class="Hui-iconfont" style="font-size:18px">&#xe60e;</i>
                         </a>
-                    </li>
-                    <li id="Hui-msg">
+                    </li>--%>
+                    <%--<li id="Hui-msg">
                         <a onclick="thanks()" title="消息">
                             <span class="badge badge-danger">3</span>
                             <i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i>
                         </a>
-                    </li>
+                    </li>--%>
                     <li id="Hui-skin" class="dropDown right dropDown_hover">
                         <a href="javascript:;" class="dropDown_A" title="换肤">
                             <i class="Hui-iconfont" style="font-size: 18px;">&#xe62a;</i>
@@ -138,7 +138,7 @@
                 </dd>
             </dl>
         </div>
-        <dl id="menu-picture">
+        <%--<dl id="menu-picture">
             <dt><i class="Hui-iconfont">&#xe634;</i> 缓存管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
@@ -146,7 +146,7 @@
                     <li><a data-href="refresh-other-redis" data-title="其它板块缓存管理" href="javascript:void(0)">其它板块缓存管理</a></li>
                 </ul>
             </dd>
-        </dl>
+        </dl>--%>
         <dl id="menu-product">
             <dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -168,16 +168,7 @@
             <dt><i class="Hui-iconfont">&#xe665;</i> 搜索管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="refresh-index" data-title="同步索引" href="javascript:void(0)">同步索引</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-comments">
-            <dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="http://changyan.kuaizhan.com/" data-title="畅言评论管理" href="javascript:void(0)">畅言评论管理</a>
-                    </li>
+                    <li><a data-href="refresh-index" data-title="同步索引(商品)" href="javascript:void(0)">同步索引(商品)</a></li>
                 </ul>
             </dd>
         </dl>
@@ -205,15 +196,15 @@
             <dd>
                 <ul>
                     <li><a data-href="system-shiro" data-title="权限配置" href="javascript:void(0)">权限配置</a></li>
-                    <li><a data-href="system-base" data-title="基本设置" href="javascript:void(0)">基本设置</a></li>
-                    <li><a data-href="system-log" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
+                    <%--<li><a data-href="system-base" data-title="基本设置" href="javascript:void(0)">基本设置</a></li>--%>
+                    <%--<li><a data-href="system-log" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>--%>
                 </ul>
             </dd>
         </dl>
     </div>
 
     <!--点击【财务】显示的侧边栏，默认隐藏-->
-    <div class="menu_dropdown bk_2" style="display: none">
+    <%--<div class="menu_dropdown bk_2" style="display: none">
         <dl id="menu-thank">
             <dt><i class="Hui-iconfont">&#xe6b7;</i> 捐赠管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -222,7 +213,7 @@
                 </ul>
             </dd>
         </dl>
-    </div>
+    </div>--%>
 </aside>
 
 <!--点击收起侧边栏-->

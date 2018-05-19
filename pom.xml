@@ -12,6 +12,9 @@
         <module>whysu-mall-common</module>
         <module>whysu-mall-manager</module>
         <module>whysu-mall-manager-web</module>
+        <module>whysu-mall-front</module>
+        <module>whysu-mall-front-web</module>
+        <module>whysu-mall-content</module>
     </modules>
 
     <!-- 集中定义管理依赖版本号 -->
@@ -48,12 +51,14 @@
         <swagger-ui.version>2.7.0</swagger-ui.version>
         <!--指定了版本范围，每次会尝试去下载最新版本-->
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
-        <elasticsearch.version>5.6.2</elasticsearch.version>
+        <elasticsearch.version>6.2.3</elasticsearch.version>
         <log4j.version>2.9.1</log4j.version>
         <shiro.version>1.4.0</shiro.version>
         <json.version>20171018</json.version>
         <!--fastdfs图片上传下载-->
         <fastdfs.version>1.27.0.0</fastdfs.version>
+        <!--mail-->
+        <mail.version>1.5.0-b01</mail.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -286,6 +291,11 @@
                 <artifactId>transport</artifactId>
                 <version>${elasticsearch.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.16.Final</version>
+            </dependency>
             <!-- Log4j 2 -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
@@ -322,6 +332,13 @@
                 <artifactId>fastdfs-client-java</artifactId>
                 <version>1.27.0.0</version>
             </dependency>
+            <!-- Mail -->
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

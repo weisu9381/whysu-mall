@@ -350,4 +350,36 @@
         ${orderCol}
         ${orderDir}
     </select>
+
+    <select id="getItemList" resultType="top.whysu.manager.dto.front.SearchItem">
+        SELECT
+            a.id productId,
+            a.title productName,
+            a.sell_point subTitle,
+            a.price salePrice,
+            a.image productImageBig,
+            a.cid cid,
+            b.name categoryName
+        FROM
+            tb_item a
+            LEFT JOIN tb_item_cat b ON a.cid = b.id
+        WHERE
+            a.`status` = 1
+    </select>
+
+    <select id="getItemById" resultType="top.whysu.manager.dto.front.SearchItem">
+        SELECT
+        a.id productId,
+        a.title productName,
+        a.sell_point subTitle,
+        a.price salePrice,
+        a.image productImageBig,
+        a.cid cid,
+        b.name categoryName
+        FROM
+        tb_item a
+        LEFT JOIN tb_item_cat b ON a.cid = b.id
+        WHERE
+        a.`status` = 1 AND a.id=#{id}
+    </select>
 </mapper>

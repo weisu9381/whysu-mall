@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import top.whysu.common.pojo.DataTablesResult;
 import top.whysu.common.pojo.Result;
 import top.whysu.common.utils.ResultUtil;
+import top.whysu.content.service.ContentService;
 import top.whysu.manager.pojo.TbPanelContent;
-import top.whysu.manager.service.ContentService;
 
 
 @RestController

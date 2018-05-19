@@ -186,15 +186,15 @@
                     <section class="panel">
                         <header class="panel-heading tab-bg-dark-navy-blue">
                             <ul class="nav nav-tabs nav-justified ">
-                                <li class="active">
+                                <li>
                                     <a href="#popular" data-toggle="tab">公告</a>
                                 </li>
-                                <li>
+                                <%--<li class="active">
                                     <a href="#latestNotice" data-toggle="tab">最新通知</a>
                                 </li>
                                 <li>
                                     <a href="#suggestion" data-toggle="tab">意见反馈</a>
-                                </li>
+                                </li>--%>
                             </ul>
                         </header>
                         <div class="panel-body" style="height: 600px;">
@@ -202,19 +202,45 @@
                                 <!--公告-->
                                 <div class="tab-pane active" id="popular">
                                     <article class="media">
-                                        <a class="pull-left thumb p-thumb">
+                                        <%--<a class="pull-left thumb p-thumb">
                                             <img src="lib/flatlab/img/product1.jpg">
-                                        </a>
+                                        </a>--%>
                                         <div class="media-body">
-                                            <div class="p-head">
-                                                尊敬的 <span id="username"></span>
+                                            <div class="p-head" style="font-size: 20px;">
+                                                尊敬的 <span id="username" ></span>
                                                 <span id="hello"></span>
                                                 现在时间是: <span id="currentTime">xx:xx:xx</span>
+                                            </div>
+                                            <div style="font-size: 15px;">
+                                                <br/>
+                                                本项目是基于SOA架构开发的的分布式电商B2C购物商城，前后端分离
+                                                <br/><br/>
+                                                后端使用到的技术：
+                                                <br/><br/>
+                                                （1）基于 Sping + SpringMVC + MyBatis 框架，数据库 MySql， 服务器 Tomcat
+                                                <br/><br/>
+                                                （2）页面基于 <a style="color: #5166c9; font-weight: bold;" href="http://www.h-ui.net/" target="_blank">H-ui框架</a>，使用到 JQuery插件： <a style="color: #5166c9; font-weight: bold;" href="http://www.treejs.cn/v3/main.php#_zTreeInfo" target="_blank">Ztree</a>，<a style="color: #5166c9; font-weight: bold;" href="http://www.datatables.club/" target="_blank">Datatables</a>，<a style="color: #5166c9; font-weight: bold;" href="http://layer.layui.com/" target="_blank">Layer</a>
+                                                <br/><br/>
+                                                （3）使用 <a style="color: #5166c9; font-weight: bold;" href="http://fex.baidu.com/webuploader/getting-started.html" target="_blank">WebUploader</a> 百度上传插件 ，使用 FastDFS 文件存储系统 + Nginx 反向代理
+                                                <br/><br/>
+                                                （4）使用 Dubbo2.5.6 + Zookeeper集群 分布式服务框架
+                                                <br/><br/>
+                                                （5）使用 ActiveMQ 面向消息中间件，以及为前端提供 Elasticsearch 搜索服务 和 Redis 缓存服务
+                                                <br/><br/>
+                                                （6）开发工具 IDEA，使用 Jrebel 实现热部署，使用 Swagger2 构建 RESTFul API文档
+                                                <br/><br/>
+                                                前台使用到的技术：(<a style="color: #5166c9; font-weight: bold;" href="http://www.h-ui.net/">前往前台</a>)
+                                                <br/><br/>
+                                                （1）基于<a style="color: #5166c9; font-weight: bold;" href="https://cn.vuejs.org/" target="_blank"> VUE框架 </a>，使用 <a style="color: #5166c9; font-weight: bold;" href="http://nodejs.cn/" target="_blank">Node.js</a>开发环境，页面使用  <a style="color: #5166c9; font-weight: bold;" href="http://element-cn.eleme.io/#/zh-CN" target="_blank"> Element UI </a>
+                                                <br/><br/>
+                                                （2）使用 Vuex 状态管理，使用 Vue Router 路由匹配，使用 webpack 模块打包器， 使用 axios 异步请求
+                                                <br/><br/>
+                                                （3）使用 极验验证码， 使用 Elasticsearch 实现商品搜索 以及 Redis 商品缓存
                                             </div>
                                         </div>
                                     </article>
                                 </div>
-                                <!--最新通知-->
+                                <%--<!--最新通知-->
                                 <div class="tab-pane" id="latestNotice">
                                     <div style="text-align: center;">最新通知：</div>
                                 </div>
@@ -224,7 +250,7 @@
                                     <article class="media">
                                         <div id="SOHUCS" sid="12345678"></div>
                                     </article>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </section>

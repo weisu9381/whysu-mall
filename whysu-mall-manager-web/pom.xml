@@ -28,6 +28,16 @@
             <artifactId>whysu-mall-manager-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>top.whysu</groupId>
+            <artifactId>whysu-mall-content-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>top.whysu</groupId>
+            <artifactId>whysu-mall-front-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -155,14 +165,14 @@
     </dependencies>
 
     <!-- 配置tomcat插件 -->
-    <!--<build>
+   <!-- <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
-                    <path>/whysu-mall-manager-web</path>
-                    <port>8680</port>
+                    <path>/</path>
+                    <port>8082</port>
                     <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>

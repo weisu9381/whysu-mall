@@ -1,7 +1,6 @@
 package top.whysu.manager.pojo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class TbMember implements Serializable {
@@ -31,7 +30,7 @@ public class TbMember implements Serializable {
 
     private Integer points;
 
-    private BigDecimal balance;
+    private Long balance;
 
     public Long getId() {
         return id;
@@ -137,11 +136,11 @@ public class TbMember implements Serializable {
         this.points = points;
     }
 
-    public BigDecimal getBalance() {
+    public Long getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(Long balance) {
         this.balance = balance;
     }
 }

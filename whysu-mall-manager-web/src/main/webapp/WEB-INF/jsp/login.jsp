@@ -96,6 +96,13 @@
             $("#password").val(getCookie("upwd"));
         }
 
+        /*验证码按回车键就是点击登录*/
+        $("#Txtidcode").bind('keyup', function(event){
+            if(event.keyCode == "13"){
+                $("#loginBtn").click();
+            }
+        });
+
         $("#loginBtn").click(function () {
             var name = $("#username").val();
             var pass = $("#password").val();
@@ -151,6 +158,9 @@
                 $("#Txtidcode").val('');
             }
         });
+
+
+
 
         //写cookie
         function setCookie(name,value) {

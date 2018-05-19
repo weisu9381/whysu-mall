@@ -435,7 +435,7 @@
         layer.confirm('确认要删除该商品吗？', {icon: 0}, function () {
             var index = layer.load(3);
             $.ajax({
-                type: 'PUT',
+                type: 'POST',
                 url: '${URL}/item/del/' + id,
                 dataType: 'json',
                 success: function (data) {

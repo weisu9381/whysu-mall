@@ -95,7 +95,7 @@
         <!-- 设定默认编码 -->
         <property name="defaultEncoding" value="UTF-8"></property>
         <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
-        <!--<property name="maxUploadSize" value="5242880"></property>-->
+        <property name="maxUploadSize" value="5242880"></property>
     </bean>
 
     <!--注意，需要是spring3.0.5以上版本。解決js/css/jpg/gif等静态资源访问不到的问题-->
@@ -119,6 +119,7 @@
     <dubbo:reference interface="top.whysu.manager.service.SystemService" id="systemService"/>
     <dubbo:reference interface="top.whysu.manager.service.ThanksService" id="thanksService"/>
     <dubbo:reference interface="top.whysu.manager.service.UserService" id="userService"/>
-    <dubbo:reference interface="top.whysu.manager.service.PanelService" id="panelService"/>
-    <dubbo:reference interface="top.whysu.manager.service.ContentService" id="contentService" />
+    <dubbo:reference interface="top.whysu.content.service.PanelService" id="panelService"/>
+    <dubbo:reference interface="top.whysu.content.service.ContentService" id="contentService" />
+    <dubbo:reference interface="top.whysu.front.service.SearchItemService" id="searchItemService" />
 </beans>
